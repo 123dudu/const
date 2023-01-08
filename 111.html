@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>垃圾分类小程序</title>
+    <style>
+         body {
+            background-color: lightblue;
+        }
+        h1 {
+            color: red;
+            text-align: center;
+        }
+        p {
+            color: green;
+            font-size: 18px;
+        }
+        input {
+            border: 2px solid red;
+            font-size: 16px;
+        }
+        button {
+            background-color: green;
+            color: white;
+            font-size: 18px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>垃圾分类小程序</h1>
+    <p>请输入垃圾的名称：</p>
+    <input type="text" id="input-name">
+    <button onclick="classify()">分类</button>
+    <p id="result"></p>
+    <script>
+        
+        /* function classify() {
+            var inputName = document.getElementById("input-name").value;
+            var result = document.getElementById("result");
+            
+        } */
+        var inputName = document.getElementById("input-name");
+        var result = document.getElementById("result");
+        function classify(){
+            const xhr=new XMLHttpRequest()
+            xhr.responseType='json'
+            xhr.open('GET','http://127.0.0.1:3000/trash-classify-data')
+            xhr.send()
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState===4){
+                    if(xhr.status>=200&&xhr.status<300){
+                        /* console.log(xhr.response);
+                        result.innerHTML=xhr.response */
+                        //手动数据转换
+                        //let data=JSON.parse(xhr.response)
+                        //result.innerHTML=data.name
+                        //console.log(xhr.response);
+                        let objects=xhr.response
+                        //console.log(objects);
+                        //在一个对象数组中查找具有指定属性值的对象，并获取该对象的另一个属性值
+                        const paper = objects.find(object => object.name ===inputName.value)
+                        const names = objects.map(object => object.name);
+                        //console.log(paper);
+                        //console.log(names);
+                        //判断用户输入的垃圾是否收集，若数据库中没有用户输入的垃圾，弹窗提示
+                        if(names.includes(inputName.value)){
+                            result.innerHTML=paper.type
+                        }else{
+                            alert('此垃圾还未收录')
+                        }
+                        //console.log(inputName.value);
+                        //const paper = objects.find(object => object.name === '废纸')
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+<!-- 
+    const express = require('express')
+const app = express()
+
+const trashClassifyData = [
+  {name: '废纸', type: '可回收垃圾'},
+  {name: '塑料瓶', type: '可回收垃圾'},
+  {name: '玻璃瓶', type: '可回收垃圾'},
+  {name: '饮料罐', type: '可回收垃圾'}
+]
+
+app.get('/trash-classify-data', (req, res) => {
+  res.json(trashClassifyData)
+})
+
+app.listen(3000, () => {
+  console.log('垃圾分类小程序 - 后台管理系统正在运行中...')
+})
+ -->
+ <!-- 
+    if (inputName == "废纸") {
+                result.innerHTML = "废纸属于可回收垃圾。";
+            } else if (inputName == "塑料瓶") {
+                result.innerHTML = "塑料瓶属于可回收垃圾。";
+            } else {
+                result.innerHTML = "请输入正确的垃圾名称。";
+            }
+  -->

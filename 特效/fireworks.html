@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tree-container {
+          position: relative;
+          height: 300px;
+          width: 300px;
+          background-color: #228B22;
+        }
+        .tree {
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-left: 100px solid transparent;
+          border-right: 100px solid transparent;
+          border-bottom: 200px solid #228B22;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .tree:before {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-left: 50px solid transparent;
+          border-right: 50px solid transparent;
+          border-bottom: 100px solid #228B22;
+          bottom: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .tree:after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-left: 25px solid transparent;
+          border-right: 25px solid transparent;
+          border-bottom: 50px solid #228B22;
+          bottom: 150px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .star {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          top: 0;
+          left: 90px;
+          background-color: #FFD700;
+          border-radius: 50%;
+          animation: rotate 5s linear infinite;
+        }
+        @keyframes rotate {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        .light {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #FF0000;
+          animation: blink 1s linear infinite;
+        }
+        .light.top-left {
+          top: 10px;
+          left: 10px;
+        }
+        .light.top-right {
+          top: 10px;
+          right: 10px;
+        }
+        .light.bottom-left {
+          bottom: 10px;
+          left: 10px;
+        }
+        .light.bottom-right {
+          bottom: 10px;
+          right: 10px;
+        }
+        @keyframes blink {
+          0% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+      </style>
+</head>
+<body>
+    <div class="tree-container">
+        <div class="tree"></div>
+        <div class="star"></div>
+        <div class="light top-left"></div>
+        <div class="light top-right"></div>
+        <div class="light bottom-right"></div>
+        <div class="light bottom-right"></div>
+        </div>
+</body>
+</html>
